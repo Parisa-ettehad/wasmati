@@ -1,0 +1,29 @@
+foreach func in functions() {
+    instrs := instructions(func);
+
+    lastLocal := "";
+    freedLocal := "";
+    bad := false;
+
+    foreach i in instrs {
+        if (i.instType = "LocalGet") {
+            lastLocal := i.label;
+        }
+
+        if (i.instType = "Call" && i.label = "$env.free") {
+            freedLocal := lastLocal;
+        }
+
+        if (i.instType = "Call" && i.label = "$env.sink" && lastLocal = freedLocal) {
+            bad := true;
+        }
+    }
+
+    if (bad) {
+        print("BAD: use-after-free detected in:");
+        print(func.name);
+    } else {
+        print("GOOD: no UAF detected in:");
+        print(func.name);
+    }
+}

@@ -1,0 +1,37 @@
+digraph G {graph [rankdir=TD];node [shape=none];20 -> 21 [color=blue fontcolor=blue label="$malloc"]
+20 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
+21 -> 24 [color=blue fontcolor=blue label="$malloc"]
+21 -> 26 [color=blue fontcolor=blue label="$malloc"]
+21 [label=<<TABLE><TR><TD>local.set $v1</TD></TR></TABLE>>];
+22 -> 23 [color=blue fontcolor=blue label="$malloc"]
+22 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
+23 -> 28 [color=blue fontcolor=blue label="$malloc"]
+23 [label=<<TABLE><TR><TD>local.set $v2</TD></TR></TABLE>>];
+24 -> 25 [color=blue fontcolor=blue label="$malloc"]
+24 [label=<<TABLE><TR><TD>local.get $v1</TD></TR></TABLE>>];
+25 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
+26 -> 27 [color=blue fontcolor=blue label="$malloc"]
+26 [label=<<TABLE><TR><TD>local.get $v1</TD></TR></TABLE>>];
+27 [label=<<TABLE><TR><TD>call $sink</TD></TR></TABLE>>];
+28 -> 29 [color=blue fontcolor=blue label="$malloc"]
+28 [label=<<TABLE><TR><TD>local.get $v2</TD></TR></TABLE>>];
+29 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
+37 -> 38 [color=blue fontcolor=blue label="$malloc"]
+37 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
+38 -> 41 [color=blue fontcolor=blue label="$malloc"]
+38 [label=<<TABLE><TR><TD>local.set $v1</TD></TR></TABLE>>];
+39 -> 40 [color=blue fontcolor=blue label="$malloc"]
+39 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
+40 -> 43 [color=blue fontcolor=blue label="$malloc"]
+40 -> 45 [color=blue fontcolor=blue label="$malloc"]
+40 [label=<<TABLE><TR><TD>local.set $v2</TD></TR></TABLE>>];
+41 -> 42 [color=blue fontcolor=blue label="$malloc"]
+41 [label=<<TABLE><TR><TD>local.get $v1</TD></TR></TABLE>>];
+42 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
+43 -> 44 [color=blue fontcolor=blue label="$malloc"]
+43 [label=<<TABLE><TR><TD>local.get $v2</TD></TR></TABLE>>];
+44 [label=<<TABLE><TR><TD>call $sink</TD></TR></TABLE>>];
+45 -> 46 [color=blue fontcolor=blue label="$malloc"]
+45 [label=<<TABLE><TR><TD>local.get $v2</TD></TR></TABLE>>];
+46 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
+}
