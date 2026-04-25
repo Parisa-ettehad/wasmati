@@ -1,29 +1,26 @@
 foreach func in functions() {
-    instrs := instructions(func);
+  frees := [f in instructions(func) :
+    (f.instType = "Call") && (f.label = "$env.free")];
 
-    lastLocal := "";
-    freedLocal := "";
-    bad := false;
+  foreach f in frees {
+    freedArgs := [a in predecessorsCFG(f) :
+      (a.instType = "LocalGet")];
 
-    foreach i in instrs {
-        if (i.instType = "LocalGet") {
-            lastLocal := i.label;
+    foreach freedArg in freedArgs {
+      uses := [u in descendantsCFG(f) :
+        (u.instType = "Call") && (u.label = "$env.sink")];
+
+      foreach u in uses {
+        useArgs := [a2 in predecessorsCFG(u) :
+          (a2.instType = "LocalGet") && (a2.label = freedArg.label)];
+
+        if (!useArgs.empty()) {
+          print("Possible use-after-free detected in:");
+          print(func.name);
+          print("Freed local used again:");
+          print(freedArg.label);
         }
-
-        if (i.instType = "Call" && i.label = "$env.free") {
-            freedLocal := lastLocal;
-        }
-
-        if (i.instType = "Call" && i.label = "$env.sink" && lastLocal = freedLocal) {
-            bad := true;
-        }
+      }
     }
-
-    if (bad) {
-        print("BAD: use-after-free detected in:");
-        print(func.name);
-    } else {
-        print("GOOD: no UAF detected in:");
-        print(func.name);
-    }
+  }
 }

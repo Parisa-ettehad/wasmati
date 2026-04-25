@@ -1,0 +1,41 @@
+foreach func in functions() {
+
+    locals := [l in instructions(func) :
+        l.instType = "LocalGet"
+    ];
+
+    foreach freeArg in locals {
+
+        freeCalls := [f in descendantsCFG(freeArg) :
+            (f.instType = "Call") &&
+            (f.label = "$free")
+        ];
+
+        foreach freeCall in freeCalls {
+
+            sinks := [s in descendantsCFG(freeCall) :
+                (s.instType = "Call") &&
+                (s.label = "$sink")
+            ];
+
+            foreach sinkCall in sinks {
+
+                sinkArgs := [a in ascendantsCFG(sinkCall) :
+                    (a.instType = "LocalGet") &&
+                    (a.label = freeArg.label) &&
+                    (freeCall in ascendantsCFG(a))
+                ];
+
+                if (!sinkArgs.empty()) {
+                    print("Possible use-after-free detected in:");
+                    print(func.name);
+                    print("freed variable:");
+                    print(freeArg.label);
+                }
+            }
+        }
+    }
+}
+
+
+
