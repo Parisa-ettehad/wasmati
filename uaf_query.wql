@@ -1,41 +1,36 @@
 foreach func in functions() {
 
-    locals := [l in instructions(func) :
-        l.instType = "LocalGet"
+    mallocs := [
+        m in instructions(func) :
+        (m.instType = "Call") && (m.label = "$malloc")
     ];
 
-    foreach freeArg in locals {
+    foreach mallocCall in mallocs {
 
-        freeCalls := [f in descendantsCFG(freeArg) :
+        frees := [
+            f in descendantsCFG(mallocCall) :
             (f.instType = "Call") &&
-            (f.label = "$free")
+            (f.label = "$free") &&
+            reachesPDG(mallocCall, f, "Function", "$malloc")
         ];
 
-        foreach freeCall in freeCalls {
+        foreach freeCall in frees {
 
-            sinks := [s in descendantsCFG(freeCall) :
+            uafs := [
+                s in descendantsCFG(freeCall) :
                 (s.instType = "Call") &&
-                (s.label = "$sink")
+                (s.label = "$sink") &&
+                reachesPDG(mallocCall, s, "Function", "$malloc")
             ];
 
-            foreach sinkCall in sinks {
-
-                sinkArgs := [a in ascendantsCFG(sinkCall) :
-                    (a.instType = "LocalGet") &&
-                    (a.label = freeArg.label) &&
-                    (freeCall in ascendantsCFG(a))
-                ];
-
-                if (!sinkArgs.empty()) {
-                    print("Possible use-after-free detected in:");
-                    print(func.name);
-                    print("freed variable:");
-                    print(freeArg.label);
-                }
+            if (!uafs.empty()) {
+                print("Possible UAF:");
+                print(func.name);
             }
         }
     }
 }
+
 
 
 

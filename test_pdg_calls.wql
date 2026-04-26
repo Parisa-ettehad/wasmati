@@ -1,0 +1,17 @@
+foreach func in functions() {
+
+  calls := [n in instructions(func) :
+    n.instType = "Call"
+  ];
+
+  foreach src in calls {
+    foreach dst in calls {
+      if (reachesPDG(src, dst, "Function", src.label)) {
+        print(func.name);
+        print(src.label);
+        print("reaches");
+        print(dst.label);
+      }
+    }
+  }
+}

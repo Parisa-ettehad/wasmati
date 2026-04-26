@@ -1,0 +1,11 @@
+foreach func in functions() {
+  calls := [n in instructions(func) :
+    n.instType = "Call"
+  ];
+
+  foreach c in calls {
+    print(func.name);
+    print(c.label);
+  }
+}
+

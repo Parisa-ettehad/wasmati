@@ -1,0 +1,20 @@
+foreach func in functions() {
+
+  locals := [n in instructions(func) :
+    n.instType = "LocalGet"
+  ];
+
+  calls := [n in instructions(func) :
+    n.instType = "Call"
+  ];
+
+  foreach l in locals {
+    foreach c in calls {
+      if (reachesPDG(l, c, "", "")) {
+        print(func.name);
+        print(l.label);
+        print(c.label);
+      }
+    }
+  }
+}
