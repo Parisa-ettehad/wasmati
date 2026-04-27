@@ -1,0 +1,20 @@
+foreach func in functions() {
+    nodes := [n in instructions(func) :
+        (n.instType = "Call") && (n.label = "$malloc")];
+
+    foreach n1 in nodes {
+        descendants := [n in descendantsCFG(n1) :
+        (n.instType = "Call") &&
+        (n.label = "$free") &&
+        reachesDDG(n1, n, "Function", "$malloc")];
+
+        foreach n2 in descendants {
+        uafs := [n in descendantsCFG(n2) :
+            reachesDDG(n1, n, "Function", "$malloc")];
+
+        if (!uafs.empty())
+            vulnerability("Use after free", func.name, "$free");
+        }
+    }
+}
+

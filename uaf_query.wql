@@ -3,16 +3,18 @@ foreach func in functions() {
     (f.instType = "Call") && (f.label = "$free")];
 
   foreach free_call in frees {
-    later_mem_accesses := [n in descendantsCFG(free_call) :
-      (n.instType = "Load") || (n.instType = "Store")];
+    later_uses := [u in descendantsCFG(free_call) :
+      (u.instType = "Call") &&
+      (u.label = "$sink") &&
+      reachesDDG(free_call, u, "Function", "$free")];
 
-    if (!later_mem_accesses.empty()) {
-      print("Possible use-after-free pattern in:");
+    foreach use in later_uses {
+      print("Use-after-free candidate with DDG:");
       print(func.name);
-      print("free call:");
-      print(free_call.label);
-      print("later memory access:");
-      print(later_mem_accesses);
+      print("free:");
+      print(free_call);
+      print("later use:");
+      print(use);
     }
   }
 }

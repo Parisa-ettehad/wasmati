@@ -4,8 +4,7 @@ digraph G {graph [rankdir=TD];node [shape=none];0 -> 1 [color=forestgreen]
 0 -> 15 [color=forestgreen]
 0 -> 35 [color=forestgreen]
 0 -> 62 [color=forestgreen]
-0 -> 89 [color=forestgreen]
-0 -> 123 [color=forestgreen]
+0 -> 96 [color=forestgreen]
 0 [label=<<TABLE><TR><TD>module</TD></TR><TR><TD>name = $uaf.wasm</TD></TR></TABLE>>];
 1 -> 2 [color=forestgreen]
 1 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $malloc</TD></TR></TABLE>>];
@@ -34,7 +33,7 @@ digraph G {graph [rankdir=TD];node [shape=none];0 -> 1 [color=forestgreen]
 14 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
 15 -> 16 [color=forestgreen]
 15 -> 21 [color=forestgreen]
-15 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $use</TD></TR></TABLE>>];
+15 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $sink</TD></TR></TABLE>>];
 16 -> 17 [color=forestgreen]
 16 -> 19 [color=forestgreen]
 16 [label=<<TABLE><TR><TD>FunctionSignature</TD></TR></TABLE>>];
@@ -73,7 +72,7 @@ digraph G {graph [rankdir=TD];node [shape=none];0 -> 1 [color=forestgreen]
 34 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
 35 -> 36 [color=forestgreen]
 35 -> 39 [color=forestgreen]
-35 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $bad</TD></TR></TABLE>>];
+35 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $bad_uaf</TD></TR></TABLE>>];
 36 -> 37 [color=forestgreen]
 36 [label=<<TABLE><TR><TD>FunctionSignature</TD></TR></TABLE>>];
 37 -> 38 [color=forestgreen]
@@ -115,7 +114,7 @@ digraph G {graph [rankdir=TD];node [shape=none];0 -> 1 [color=forestgreen]
 55 -> 54 [color=forestgreen]
 55 [label=<<TABLE><TR><TD>i32.load offset=12</TD></TR></TABLE>>];
 56 -> 55 [color=forestgreen]
-56 [label=<<TABLE><TR><TD>call $use</TD></TR></TABLE>>];
+56 [label=<<TABLE><TR><TD>call $sink</TD></TR></TABLE>>];
 57 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
 58 [label=<<TABLE><TR><TD>i32.const 16</TD></TR></TABLE>>];
 59 -> 58 [color=forestgreen]
@@ -126,7 +125,7 @@ digraph G {graph [rankdir=TD];node [shape=none];0 -> 1 [color=forestgreen]
 61 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
 62 -> 63 [color=forestgreen]
 62 -> 66 [color=forestgreen]
-62 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $good</TD></TR></TABLE>>];
+62 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $good_different_pointer</TD></TR></TABLE>>];
 63 -> 64 [color=forestgreen]
 63 [label=<<TABLE><TR><TD>FunctionSignature</TD></TR></TABLE>>];
 64 -> 65 [color=forestgreen]
@@ -135,10 +134,12 @@ digraph G {graph [rankdir=TD];node [shape=none];0 -> 1 [color=forestgreen]
 66 -> 71 [color=forestgreen]
 66 -> 73 [color=forestgreen]
 66 -> 77 [color=forestgreen]
-66 -> 80 [color=forestgreen]
-66 -> 83 [color=forestgreen]
+66 -> 81 [color=forestgreen]
+66 -> 84 [color=forestgreen]
 66 -> 87 [color=forestgreen]
-66 -> 88 [color=forestgreen]
+66 -> 90 [color=forestgreen]
+66 -> 94 [color=forestgreen]
+66 -> 95 [color=forestgreen]
 66 -> 67 [color=forestgreen]
 66 [label=<<TABLE><TR><TD>Instructions</TD></TR></TABLE>>];
 67 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
@@ -160,149 +161,94 @@ digraph G {graph [rankdir=TD];node [shape=none];0 -> 1 [color=forestgreen]
 77 -> 74 [color=forestgreen]
 77 [label=<<TABLE><TR><TD>i32.store offset=12</TD></TR></TABLE>>];
 78 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-79 -> 78 [color=forestgreen]
-79 [label=<<TABLE><TR><TD>i32.load offset=12</TD></TR></TABLE>>];
+79 [label=<<TABLE><TR><TD>i32.const 20</TD></TR></TABLE>>];
 80 -> 79 [color=forestgreen]
-80 [label=<<TABLE><TR><TD>call $use</TD></TR></TABLE>>];
-81 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-82 -> 81 [color=forestgreen]
-82 [label=<<TABLE><TR><TD>i32.load offset=12</TD></TR></TABLE>>];
+80 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
+81 -> 80 [color=forestgreen]
+81 -> 78 [color=forestgreen]
+81 [label=<<TABLE><TR><TD>i32.store offset=8</TD></TR></TABLE>>];
+82 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
 83 -> 82 [color=forestgreen]
-83 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
-84 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-85 [label=<<TABLE><TR><TD>i32.const 16</TD></TR></TABLE>>];
+83 [label=<<TABLE><TR><TD>i32.load offset=12</TD></TR></TABLE>>];
+84 -> 83 [color=forestgreen]
+84 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
+85 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
 86 -> 85 [color=forestgreen]
-86 -> 84 [color=forestgreen]
-86 [label=<<TABLE><TR><TD>i32.add</TD></TR></TABLE>>];
+86 [label=<<TABLE><TR><TD>i32.load offset=8</TD></TR></TABLE>>];
 87 -> 86 [color=forestgreen]
-87 [label=<<TABLE><TR><TD>global.set $__stack_pointer</TD></TR></TABLE>>];
-88 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
-89 -> 90 [color=forestgreen]
-89 -> 93 [color=forestgreen]
-89 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $good_different_pointer</TD></TR></TABLE>>];
-90 -> 91 [color=forestgreen]
-90 [label=<<TABLE><TR><TD>FunctionSignature</TD></TR></TABLE>>];
-91 -> 92 [color=forestgreen]
-91 [label=<<TABLE><TR><TD>Locals</TD></TR></TABLE>>];
-92 [label=<<TABLE><TR><TD>type</TD><TD>i32</TD></TR><TR><TD>name</TD><TD>$l0</TD></TR></TABLE>>];
-93 -> 98 [color=forestgreen]
-93 -> 100 [color=forestgreen]
-93 -> 104 [color=forestgreen]
-93 -> 108 [color=forestgreen]
-93 -> 111 [color=forestgreen]
-93 -> 114 [color=forestgreen]
-93 -> 117 [color=forestgreen]
-93 -> 121 [color=forestgreen]
-93 -> 122 [color=forestgreen]
-93 -> 94 [color=forestgreen]
-93 [label=<<TABLE><TR><TD>Instructions</TD></TR></TABLE>>];
-94 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
-95 [label=<<TABLE><TR><TD>global.get $__stack_pointer</TD></TR></TABLE>>];
-96 [label=<<TABLE><TR><TD>i32.const 16</TD></TR></TABLE>>];
-97 -> 96 [color=forestgreen]
-97 -> 95 [color=forestgreen]
-97 [label=<<TABLE><TR><TD>i32.sub</TD></TR></TABLE>>];
-98 -> 97 [color=forestgreen]
-98 [label=<<TABLE><TR><TD>local.set $l0</TD></TR></TABLE>>];
-99 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-100 -> 99 [color=forestgreen]
-100 [label=<<TABLE><TR><TD>global.set $__stack_pointer</TD></TR></TABLE>>];
-101 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-102 [label=<<TABLE><TR><TD>i32.const 20</TD></TR></TABLE>>];
-103 -> 102 [color=forestgreen]
-103 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
+87 [label=<<TABLE><TR><TD>call $sink</TD></TR></TABLE>>];
+88 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+89 -> 88 [color=forestgreen]
+89 [label=<<TABLE><TR><TD>i32.load offset=8</TD></TR></TABLE>>];
+90 -> 89 [color=forestgreen]
+90 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
+91 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+92 [label=<<TABLE><TR><TD>i32.const 16</TD></TR></TABLE>>];
+93 -> 92 [color=forestgreen]
+93 -> 91 [color=forestgreen]
+93 [label=<<TABLE><TR><TD>i32.add</TD></TR></TABLE>>];
+94 -> 93 [color=forestgreen]
+94 [label=<<TABLE><TR><TD>global.set $__stack_pointer</TD></TR></TABLE>>];
+95 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
+96 -> 97 [color=forestgreen]
+96 -> 100 [color=forestgreen]
+96 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $good_stack_pointer</TD></TR></TABLE>>];
+97 -> 98 [color=forestgreen]
+97 [label=<<TABLE><TR><TD>FunctionSignature</TD></TR></TABLE>>];
+98 -> 99 [color=forestgreen]
+98 [label=<<TABLE><TR><TD>Locals</TD></TR></TABLE>>];
+99 [label=<<TABLE><TR><TD>type</TD><TD>i32</TD></TR><TR><TD>name</TD><TD>$l0</TD></TR></TABLE>>];
+100 -> 105 [color=forestgreen]
+100 -> 107 [color=forestgreen]
+100 -> 110 [color=forestgreen]
+100 -> 114 [color=forestgreen]
+100 -> 117 [color=forestgreen]
+100 -> 121 [color=forestgreen]
+100 -> 125 [color=forestgreen]
+100 -> 126 [color=forestgreen]
+100 -> 101 [color=forestgreen]
+100 [label=<<TABLE><TR><TD>Instructions</TD></TR></TABLE>>];
+101 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
+102 [label=<<TABLE><TR><TD>global.get $__stack_pointer</TD></TR></TABLE>>];
+103 [label=<<TABLE><TR><TD>i32.const 16</TD></TR></TABLE>>];
 104 -> 103 [color=forestgreen]
-104 -> 101 [color=forestgreen]
-104 [label=<<TABLE><TR><TD>i32.store offset=12</TD></TR></TABLE>>];
-105 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-106 [label=<<TABLE><TR><TD>i32.const 20</TD></TR></TABLE>>];
+104 -> 102 [color=forestgreen]
+104 [label=<<TABLE><TR><TD>i32.sub</TD></TR></TABLE>>];
+105 -> 104 [color=forestgreen]
+105 [label=<<TABLE><TR><TD>local.set $l0</TD></TR></TABLE>>];
+106 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
 107 -> 106 [color=forestgreen]
-107 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
-108 -> 107 [color=forestgreen]
-108 -> 105 [color=forestgreen]
-108 [label=<<TABLE><TR><TD>i32.store offset=8</TD></TR></TABLE>>];
-109 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+107 [label=<<TABLE><TR><TD>global.set $__stack_pointer</TD></TR></TABLE>>];
+108 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+109 [label=<<TABLE><TR><TD>i32.const 5</TD></TR></TABLE>>];
 110 -> 109 [color=forestgreen]
-110 [label=<<TABLE><TR><TD>i32.load offset=12</TD></TR></TABLE>>];
-111 -> 110 [color=forestgreen]
-111 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
-112 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+110 -> 108 [color=forestgreen]
+110 [label=<<TABLE><TR><TD>i32.store offset=12</TD></TR></TABLE>>];
+111 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+112 [label=<<TABLE><TR><TD>i32.const 20</TD></TR></TABLE>>];
 113 -> 112 [color=forestgreen]
-113 [label=<<TABLE><TR><TD>i32.load offset=8</TD></TR></TABLE>>];
+113 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
 114 -> 113 [color=forestgreen]
-114 [label=<<TABLE><TR><TD>call $use</TD></TR></TABLE>>];
+114 -> 111 [color=forestgreen]
+114 [label=<<TABLE><TR><TD>i32.store offset=8</TD></TR></TABLE>>];
 115 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
 116 -> 115 [color=forestgreen]
 116 [label=<<TABLE><TR><TD>i32.load offset=8</TD></TR></TABLE>>];
 117 -> 116 [color=forestgreen]
 117 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
 118 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-119 [label=<<TABLE><TR><TD>i32.const 16</TD></TR></TABLE>>];
+119 [label=<<TABLE><TR><TD>i32.const 12</TD></TR></TABLE>>];
 120 -> 119 [color=forestgreen]
 120 -> 118 [color=forestgreen]
 120 [label=<<TABLE><TR><TD>i32.add</TD></TR></TABLE>>];
 121 -> 120 [color=forestgreen]
-121 [label=<<TABLE><TR><TD>global.set $__stack_pointer</TD></TR></TABLE>>];
-122 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
-123 -> 124 [color=forestgreen]
-123 -> 127 [color=forestgreen]
-123 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $good_stack_pointer</TD></TR></TABLE>>];
-124 -> 125 [color=forestgreen]
-124 [label=<<TABLE><TR><TD>FunctionSignature</TD></TR></TABLE>>];
-125 -> 126 [color=forestgreen]
-125 [label=<<TABLE><TR><TD>Locals</TD></TR></TABLE>>];
-126 [label=<<TABLE><TR><TD>type</TD><TD>i32</TD></TR><TR><TD>name</TD><TD>$l0</TD></TR></TABLE>>];
-127 -> 132 [color=forestgreen]
-127 -> 134 [color=forestgreen]
-127 -> 137 [color=forestgreen]
-127 -> 141 [color=forestgreen]
-127 -> 144 [color=forestgreen]
-127 -> 148 [color=forestgreen]
-127 -> 152 [color=forestgreen]
-127 -> 153 [color=forestgreen]
-127 -> 128 [color=forestgreen]
-127 [label=<<TABLE><TR><TD>Instructions</TD></TR></TABLE>>];
-128 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
-129 [label=<<TABLE><TR><TD>global.get $__stack_pointer</TD></TR></TABLE>>];
-130 [label=<<TABLE><TR><TD>i32.const 16</TD></TR></TABLE>>];
-131 -> 130 [color=forestgreen]
-131 -> 129 [color=forestgreen]
-131 [label=<<TABLE><TR><TD>i32.sub</TD></TR></TABLE>>];
-132 -> 131 [color=forestgreen]
-132 [label=<<TABLE><TR><TD>local.set $l0</TD></TR></TABLE>>];
-133 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-134 -> 133 [color=forestgreen]
-134 [label=<<TABLE><TR><TD>global.set $__stack_pointer</TD></TR></TABLE>>];
-135 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-136 [label=<<TABLE><TR><TD>i32.const 5</TD></TR></TABLE>>];
-137 -> 136 [color=forestgreen]
-137 -> 135 [color=forestgreen]
-137 [label=<<TABLE><TR><TD>i32.store offset=12</TD></TR></TABLE>>];
-138 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-139 [label=<<TABLE><TR><TD>i32.const 20</TD></TR></TABLE>>];
-140 -> 139 [color=forestgreen]
-140 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
-141 -> 140 [color=forestgreen]
-141 -> 138 [color=forestgreen]
-141 [label=<<TABLE><TR><TD>i32.store offset=8</TD></TR></TABLE>>];
-142 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-143 -> 142 [color=forestgreen]
-143 [label=<<TABLE><TR><TD>i32.load offset=8</TD></TR></TABLE>>];
-144 -> 143 [color=forestgreen]
-144 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
-145 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-146 [label=<<TABLE><TR><TD>i32.const 12</TD></TR></TABLE>>];
-147 -> 146 [color=forestgreen]
-147 -> 145 [color=forestgreen]
-147 [label=<<TABLE><TR><TD>i32.add</TD></TR></TABLE>>];
-148 -> 147 [color=forestgreen]
-148 [label=<<TABLE><TR><TD>call $use</TD></TR></TABLE>>];
-149 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
-150 [label=<<TABLE><TR><TD>i32.const 16</TD></TR></TABLE>>];
-151 -> 150 [color=forestgreen]
-151 -> 149 [color=forestgreen]
-151 [label=<<TABLE><TR><TD>i32.add</TD></TR></TABLE>>];
-152 -> 151 [color=forestgreen]
-152 [label=<<TABLE><TR><TD>global.set $__stack_pointer</TD></TR></TABLE>>];
-153 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
+121 [label=<<TABLE><TR><TD>call $sink</TD></TR></TABLE>>];
+122 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+123 [label=<<TABLE><TR><TD>i32.const 16</TD></TR></TABLE>>];
+124 -> 123 [color=forestgreen]
+124 -> 122 [color=forestgreen]
+124 [label=<<TABLE><TR><TD>i32.add</TD></TR></TABLE>>];
+125 -> 124 [color=forestgreen]
+125 [label=<<TABLE><TR><TD>global.set $__stack_pointer</TD></TR></TABLE>>];
+126 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
 }
