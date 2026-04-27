@@ -11,19 +11,14 @@
   (func $bad (type $void_t)
     (local $v1 i32)
     (local $v2 i32)
-
     call $malloc
     local.set $v1
-
     call $malloc
     local.set $v2
-
     local.get $v1
     call $free
-
     local.get $v1
     call $sink
-
     local.get $v2
     call $free
   )
@@ -31,19 +26,14 @@
   (func $good (type $void_t)
     (local $v1 i32)
     (local $v2 i32)
-
     call $malloc
     local.set $v1
-
     call $malloc
     local.set $v2
-
     local.get $v1
     call $free
-
     local.get $v2
     call $sink
-
     local.get $v2
     call $free
   )

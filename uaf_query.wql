@@ -1,36 +1,18 @@
 foreach func in functions() {
+  frees := [f in instructions(func) :
+    (f.instType = "Call") && (f.label = "$free")];
 
-    mallocs := [
-        m in instructions(func) :
-        (m.instType = "Call") && (m.label = "$malloc")
-    ];
+  foreach free_call in frees {
+    later_mem_accesses := [n in descendantsCFG(free_call) :
+      (n.instType = "Load") || (n.instType = "Store")];
 
-    foreach mallocCall in mallocs {
-
-        frees := [
-            f in descendantsCFG(mallocCall) :
-            (f.instType = "Call") &&
-            (f.label = "$free") &&
-            reachesPDG(mallocCall, f, "Function", "$malloc")
-        ];
-
-        foreach freeCall in frees {
-
-            uafs := [
-                s in descendantsCFG(freeCall) :
-                (s.instType = "Call") &&
-                (s.label = "$sink") &&
-                reachesPDG(mallocCall, s, "Function", "$malloc")
-            ];
-
-            if (!uafs.empty()) {
-                print("Possible UAF:");
-                print(func.name);
-            }
-        }
+    if (!later_mem_accesses.empty()) {
+      print("Possible use-after-free pattern in:");
+      print(func.name);
+      print("free call:");
+      print(free_call.label);
+      print("later memory access:");
+      print(later_mem_accesses);
     }
+  }
 }
-
-
-
-

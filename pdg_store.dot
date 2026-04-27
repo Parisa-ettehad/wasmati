@@ -1,0 +1,41 @@
+digraph G {graph [rankdir=TD];node [shape=none];16 -> 17 [color=blue fontcolor=blue label="$env.malloc"]
+16 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+17 -> 20 [color=blue fontcolor=blue label="$env.malloc"]
+17 -> 22 [color=blue fontcolor=blue label="$env.malloc"]
+17 [label=<<TABLE><TR><TD>local.set $l0</TD></TR></TABLE>>];
+18 -> 19 [color=blue fontcolor=blue label="$env.malloc"]
+18 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+19 -> 25 [color=blue fontcolor=blue label="$env.malloc"]
+19 [label=<<TABLE><TR><TD>local.set $l1</TD></TR></TABLE>>];
+20 -> 21 [color=blue fontcolor=blue label="$env.malloc"]
+20 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+21 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+22 -> 24 [color=blue fontcolor=blue label="$env.malloc"]
+22 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+23 -> 24 [color=blue fontcolor=blue label="i32.const 10"]
+23 [label=<<TABLE><TR><TD>i32.const 10</TD></TR></TABLE>>];
+24 [label=<<TABLE><TR><TD>i32.store offset=0</TD></TR></TABLE>>];
+25 -> 26 [color=blue fontcolor=blue label="$env.malloc"]
+25 [label=<<TABLE><TR><TD>local.get $l1</TD></TR></TABLE>>];
+26 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+34 -> 35 [color=blue fontcolor=blue label="$env.malloc"]
+34 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+35 -> 38 [color=blue fontcolor=blue label="$env.malloc"]
+35 [label=<<TABLE><TR><TD>local.set $l0</TD></TR></TABLE>>];
+36 -> 37 [color=blue fontcolor=blue label="$env.malloc"]
+36 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+37 -> 40 [color=blue fontcolor=blue label="$env.malloc"]
+37 -> 43 [color=blue fontcolor=blue label="$env.malloc"]
+37 [label=<<TABLE><TR><TD>local.set $l1</TD></TR></TABLE>>];
+38 -> 39 [color=blue fontcolor=blue label="$env.malloc"]
+38 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+39 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+40 -> 42 [color=blue fontcolor=blue label="$env.malloc"]
+40 [label=<<TABLE><TR><TD>local.get $l1</TD></TR></TABLE>>];
+41 -> 42 [color=blue fontcolor=blue label="i32.const 20"]
+41 [label=<<TABLE><TR><TD>i32.const 20</TD></TR></TABLE>>];
+42 [label=<<TABLE><TR><TD>i32.store offset=0</TD></TR></TABLE>>];
+43 -> 44 [color=blue fontcolor=blue label="$env.malloc"]
+43 [label=<<TABLE><TR><TD>local.get $l1</TD></TR></TABLE>>];
+44 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+}

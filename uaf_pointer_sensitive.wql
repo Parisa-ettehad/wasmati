@@ -1,0 +1,22 @@
+free_call(f) :-
+    instructions(f),
+    call(f, "$free").
+
+sink_call(s) :-
+    instructions(s),
+    call(s, "$sink").
+
+same_pointer(f, s) :-
+    free_call(f),
+    sink_call(s),
+    reachesCFG(f, s),
+    predecessorCFG(load1, f),
+    predecessorCFG(load2, s),
+    opcode(load1, "Load"),
+    opcode(load2, "Load"),
+    sameOffset(load1, load2).
+
+uaf(f, s) :-
+    same_pointer(f, s).
+
+uaf(f, s) ?

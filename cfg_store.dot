@@ -1,0 +1,51 @@
+digraph G {graph [rankdir=TD];node [shape=none];14 -> 16 [color=red]
+14 [label=<<TABLE><TR><TD>Instructions</TD></TR></TABLE>>];
+15 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
+16 -> 17 [color=red]
+16 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+17 -> 18 [color=red]
+17 [label=<<TABLE><TR><TD>local.set $l0</TD></TR></TABLE>>];
+18 -> 19 [color=red]
+18 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+19 -> 20 [color=red]
+19 [label=<<TABLE><TR><TD>local.set $l1</TD></TR></TABLE>>];
+20 -> 21 [color=red]
+20 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+21 -> 22 [color=red]
+21 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+22 -> 23 [color=red]
+22 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+23 -> 24 [color=red]
+23 [label=<<TABLE><TR><TD>i32.const 10</TD></TR></TABLE>>];
+24 -> 25 [color=red]
+24 [label=<<TABLE><TR><TD>i32.store offset=0</TD></TR></TABLE>>];
+25 -> 26 [color=red]
+25 [label=<<TABLE><TR><TD>local.get $l1</TD></TR></TABLE>>];
+26 -> 15 [color=red]
+26 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+32 -> 34 [color=red]
+32 [label=<<TABLE><TR><TD>Instructions</TD></TR></TABLE>>];
+33 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
+34 -> 35 [color=red]
+34 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+35 -> 36 [color=red]
+35 [label=<<TABLE><TR><TD>local.set $l0</TD></TR></TABLE>>];
+36 -> 37 [color=red]
+36 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+37 -> 38 [color=red]
+37 [label=<<TABLE><TR><TD>local.set $l1</TD></TR></TABLE>>];
+38 -> 39 [color=red]
+38 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+39 -> 40 [color=red]
+39 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+40 -> 41 [color=red]
+40 [label=<<TABLE><TR><TD>local.get $l1</TD></TR></TABLE>>];
+41 -> 42 [color=red]
+41 [label=<<TABLE><TR><TD>i32.const 20</TD></TR></TABLE>>];
+42 -> 43 [color=red]
+42 [label=<<TABLE><TR><TD>i32.store offset=0</TD></TR></TABLE>>];
+43 -> 44 [color=red]
+43 [label=<<TABLE><TR><TD>local.get $l1</TD></TR></TABLE>>];
+44 -> 33 [color=red]
+44 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+}

@@ -1,0 +1,32 @@
+digraph G {graph [rankdir=TD];node [shape=none];1 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $malloc</TD></TR></TABLE>>];
+7 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $free</TD></TR></TABLE>>];
+15 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $use</TD></TR></TABLE>>];
+49 -> 1 [color=mediumpurple3]
+49 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
+53 -> 7 [color=mediumpurple3]
+53 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
+56 -> 15 [color=mediumpurple3]
+56 [label=<<TABLE><TR><TD>call $use</TD></TR></TABLE>>];
+76 -> 1 [color=mediumpurple3]
+76 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
+80 -> 15 [color=mediumpurple3]
+80 [label=<<TABLE><TR><TD>call $use</TD></TR></TABLE>>];
+83 -> 7 [color=mediumpurple3]
+83 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
+103 -> 1 [color=mediumpurple3]
+103 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
+107 -> 1 [color=mediumpurple3]
+107 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
+111 -> 7 [color=mediumpurple3]
+111 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
+114 -> 15 [color=mediumpurple3]
+114 [label=<<TABLE><TR><TD>call $use</TD></TR></TABLE>>];
+117 -> 7 [color=mediumpurple3]
+117 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
+140 -> 1 [color=mediumpurple3]
+140 [label=<<TABLE><TR><TD>call $malloc</TD></TR></TABLE>>];
+144 -> 7 [color=mediumpurple3]
+144 [label=<<TABLE><TR><TD>call $free</TD></TR></TABLE>>];
+148 -> 15 [color=mediumpurple3]
+148 [label=<<TABLE><TR><TD>call $use</TD></TR></TABLE>>];
+}

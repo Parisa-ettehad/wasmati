@@ -1,0 +1,27 @@
+foreach func in functions() {
+
+  mallocs := [m in instructions(func) :
+    (m.instType = "Call") && (m.label = "$malloc")
+  ];
+
+  foreach mallocCall in mallocs {
+
+    frees := [f in descendantsCFG(mallocCall) :
+      (f.instType = "Call") &&
+      (f.label = "$free") &&
+      reachesPDG(mallocCall, f, "Function", "$malloc")
+    ];
+
+    foreach freeCall in frees {
+
+      uses := [u in descendantsCFG(freeCall) :
+        reachesPDG(mallocCall, u, "Function", "$malloc")
+      ];
+
+      if (!uses.empty()) {
+        print("Possible UAF:");
+        print(func.name);
+      }
+    }
+  }
+}

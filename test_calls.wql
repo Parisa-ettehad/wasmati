@@ -1,11 +1,10 @@
-foreach func in functions() {
-  calls := [n in instructions(func) :
-    n.instType = "Call"
-  ];
-
-  foreach c in calls {
-    print(func.name);
-    print(c.label);
-  }
-}
-
+foreach func in functions():
+    nodes := [n in instructions(func) : (n.instType = "Call") && (n.label in config["pairMalloc"])];
+    foreach callMalloc in nodes:
+        descendants := [n in descendantsCFG(callMalloc) :
+            (n.instType = "Call") && (n.label = config["pairMalloc"][callMalloc.label]) &&
+            reachesDDG(callMalloc, n, "Function", callMalloc.label)];
+        foreach callFree in descendants:
+            uafs := [n in descendantsCFG(callFree) : reachesDDG(callMalloc, n, "Function", callMalloc.label)];
+            if (!uafs.empty()):
+                vulnerability("Use after free", func.name, callFree.label);

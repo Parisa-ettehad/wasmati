@@ -1,0 +1,8 @@
+foreach func in functions()
+  foreach f in instructions(func)
+    if (f.instType = "Call")
+      if (f.label = "$dealloc")
+        foreach u in descendantsCFG(f)
+          if (u.instType = "Call")
+            if (u.label = "$sink")
+              print(func.name);

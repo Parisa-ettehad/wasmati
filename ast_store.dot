@@ -1,0 +1,90 @@
+digraph G {graph [rankdir=TD];node [shape=none];0 -> 1 [color=forestgreen]
+0 -> 5 [color=forestgreen]
+0 -> 9 [color=forestgreen]
+0 -> 27 [color=forestgreen]
+0 [label=<<TABLE><TR><TD>Module</TD></TR></TABLE>>];
+1 -> 2 [color=forestgreen]
+1 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $env.malloc</TD></TR></TABLE>>];
+2 -> 3 [color=forestgreen]
+2 [label=<<TABLE><TR><TD>FunctionSignature</TD></TR></TABLE>>];
+3 -> 4 [color=forestgreen]
+3 [label=<<TABLE><TR><TD>Results</TD></TR></TABLE>>];
+4 [label=<<TABLE><TR><TD>type</TD><TD>i32</TD></TR><TR><TD>name</TD><TD></TD></TR></TABLE>>];
+5 -> 6 [color=forestgreen]
+5 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $env.free</TD></TR></TABLE>>];
+6 -> 7 [color=forestgreen]
+6 [label=<<TABLE><TR><TD>FunctionSignature</TD></TR></TABLE>>];
+7 -> 8 [color=forestgreen]
+7 [label=<<TABLE><TR><TD>Parameters</TD></TR></TABLE>>];
+8 [label=<<TABLE><TR><TD>type</TD><TD>i32</TD></TR><TR><TD>name</TD><TD>$p0</TD></TR></TABLE>>];
+9 -> 10 [color=forestgreen]
+9 -> 14 [color=forestgreen]
+9 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $f2</TD></TR></TABLE>>];
+10 -> 11 [color=forestgreen]
+10 [label=<<TABLE><TR><TD>FunctionSignature</TD></TR></TABLE>>];
+11 -> 12 [color=forestgreen]
+11 -> 13 [color=forestgreen]
+11 [label=<<TABLE><TR><TD>Locals</TD></TR></TABLE>>];
+12 [label=<<TABLE><TR><TD>type</TD><TD>i32</TD></TR><TR><TD>name</TD><TD>$l0</TD></TR></TABLE>>];
+13 [label=<<TABLE><TR><TD>type</TD><TD>i32</TD></TR><TR><TD>name</TD><TD>$l1</TD></TR></TABLE>>];
+14 -> 17 [color=forestgreen]
+14 -> 19 [color=forestgreen]
+14 -> 21 [color=forestgreen]
+14 -> 24 [color=forestgreen]
+14 -> 26 [color=forestgreen]
+14 -> 15 [color=forestgreen]
+14 [label=<<TABLE><TR><TD>Instructions</TD></TR></TABLE>>];
+15 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
+16 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+17 -> 16 [color=forestgreen]
+17 [label=<<TABLE><TR><TD>local.set $l0</TD></TR></TABLE>>];
+18 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+19 -> 18 [color=forestgreen]
+19 [label=<<TABLE><TR><TD>local.set $l1</TD></TR></TABLE>>];
+20 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+21 -> 20 [color=forestgreen]
+21 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+22 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+23 [label=<<TABLE><TR><TD>i32.const 10</TD></TR></TABLE>>];
+24 -> 23 [color=forestgreen]
+24 -> 22 [color=forestgreen]
+24 [label=<<TABLE><TR><TD>i32.store offset=0</TD></TR></TABLE>>];
+25 [label=<<TABLE><TR><TD>local.get $l1</TD></TR></TABLE>>];
+26 -> 25 [color=forestgreen]
+26 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+27 -> 28 [color=forestgreen]
+27 -> 32 [color=forestgreen]
+27 [label=<<TABLE><TR><TD>Function</TD></TR><TR><TD>name = $f3</TD></TR></TABLE>>];
+28 -> 29 [color=forestgreen]
+28 [label=<<TABLE><TR><TD>FunctionSignature</TD></TR></TABLE>>];
+29 -> 30 [color=forestgreen]
+29 -> 31 [color=forestgreen]
+29 [label=<<TABLE><TR><TD>Locals</TD></TR></TABLE>>];
+30 [label=<<TABLE><TR><TD>type</TD><TD>i32</TD></TR><TR><TD>name</TD><TD>$l0</TD></TR></TABLE>>];
+31 [label=<<TABLE><TR><TD>type</TD><TD>i32</TD></TR><TR><TD>name</TD><TD>$l1</TD></TR></TABLE>>];
+32 -> 35 [color=forestgreen]
+32 -> 37 [color=forestgreen]
+32 -> 39 [color=forestgreen]
+32 -> 42 [color=forestgreen]
+32 -> 44 [color=forestgreen]
+32 -> 33 [color=forestgreen]
+32 [label=<<TABLE><TR><TD>Instructions</TD></TR></TABLE>>];
+33 [label=<<TABLE><TR><TD>return</TD></TR></TABLE>>];
+34 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+35 -> 34 [color=forestgreen]
+35 [label=<<TABLE><TR><TD>local.set $l0</TD></TR></TABLE>>];
+36 [label=<<TABLE><TR><TD>call $env.malloc</TD></TR></TABLE>>];
+37 -> 36 [color=forestgreen]
+37 [label=<<TABLE><TR><TD>local.set $l1</TD></TR></TABLE>>];
+38 [label=<<TABLE><TR><TD>local.get $l0</TD></TR></TABLE>>];
+39 -> 38 [color=forestgreen]
+39 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+40 [label=<<TABLE><TR><TD>local.get $l1</TD></TR></TABLE>>];
+41 [label=<<TABLE><TR><TD>i32.const 20</TD></TR></TABLE>>];
+42 -> 41 [color=forestgreen]
+42 -> 40 [color=forestgreen]
+42 [label=<<TABLE><TR><TD>i32.store offset=0</TD></TR></TABLE>>];
+43 [label=<<TABLE><TR><TD>local.get $l1</TD></TR></TABLE>>];
+44 -> 43 [color=forestgreen]
+44 [label=<<TABLE><TR><TD>call $env.free</TD></TR></TABLE>>];
+}
