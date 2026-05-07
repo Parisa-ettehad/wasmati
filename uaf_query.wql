@@ -1,20 +1,26 @@
 foreach func in functions() {
-  frees := [f in instructions(func) :
-    (f.instType = "Call") && (f.label = "$free")];
 
-  foreach free_call in frees {
-    later_uses := [u in descendantsCFG(free_call) :
-      (u.instType = "Call") &&
-      (u.label = "$sink") &&
-      reachesDDG(free_call, u, "Function", "$free")];
+  nodes := [n  in instructions(func) :
+    (n.instType = "Call") && (n.label = "$malloc")
+  ];
 
-    foreach use in later_uses {
-      print("Use-after-free candidate with DDG:");
-      print(func.name);
-      print("free:");
-      print(free_call);
-      print("later use:");
-      print(use);
+  foreach n1 in nodes {
+
+    frees := [f in descendantsCFG(n1) :
+      (f.instType = "Call") &&
+      (f.label = "$free") &&
+      reachesDDG(n1, n, "Function", "$malloc")
+    ];
+
+    foreach n2 in frees {
+
+      uses := [u in descendantsCFG(n2) :
+        reachesDDG(n1, u, "Function", "$malloc")
+      ];
+
+      if (!uses.empty()) {
+        vulnerability("Possible UAF:", func.name, "$free");
+      }
     }
   }
 }

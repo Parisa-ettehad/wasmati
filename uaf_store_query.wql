@@ -1,26 +1,25 @@
 foreach func in functions() {
 
-  mallocs := [m in instructions(func) :
-    (m.instType = "Call") && (m.label = "$malloc")
+  mallocs := [n  in instructions(func) :
+    (n.instType = "Call") && (m.label = "$malloc")
   ];
 
-  foreach mallocCall in mallocs {
+  foreach n1 in mallocs {
 
-    frees := [f in descendantsCFG(mallocCall) :
+    frees := [f in descendantsCFG(n1) :
       (f.instType = "Call") &&
       (f.label = "$free") &&
-      reachesPDG(mallocCall, f, "Function", "$malloc")
+      reachesDDG(n1, n, "Function", "$malloc")
     ];
 
-    foreach freeCall in frees {
+    foreach n2 in frees {
 
-      uses := [u in descendantsCFG(freeCall) :
-        reachesPDG(mallocCall, u, "Function", "$malloc")
+      uses := [u in descendantsCFG(n2) :
+        reachesDDG(n1, u, "Function", "$malloc")
       ];
 
       if (!uses.empty()) {
-        print("Possible UAF:");
-        print(func.name);
+        vulnerability("Possible UAF:", func.name, "$free);
       }
     }
   }
